@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { NativeRouter, Routes, Route } from "react-router-native";
+import Title from "./components/title";
+import NavBar from "./components/nav";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NativeRouter>
+      <ScrollView>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+        </View>
+        <Title />
+        <NavBar />
+        <Routes>
+          <Route path="/" />
+        </Routes>
+      </ScrollView>
+    </NativeRouter>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 7,
   },
 });
