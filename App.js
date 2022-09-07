@@ -25,7 +25,6 @@ export default function App() {
         <NavBar />
         <View>
           {recipes.map((recipe) => {
-            console.log(recipe.img);
             return (
               <View key={recipe.name}>
                 <Text>{recipe.name}</Text>
@@ -36,7 +35,7 @@ export default function App() {
                   }}
                 />
                 <Text>{recipe.ingredients}</Text>
-                <Text>{recipe.body}</Text>
+                <Text>{recipe.Directions}</Text>
               </View>
             );
           })}
