@@ -8,8 +8,9 @@ import {
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
-import { ItemAdder } from "./item-adder";
-import { ItemList } from "./item-list";
+import { ItemAdder } from "./Item-adder";
+import { ItemList } from "./Item-list";
+import Recipes from "./Recipes";
 
 const Home = () => {
   const navigation = useNavigation();
@@ -55,6 +56,7 @@ const Home = () => {
             <Text style={styles.submit}>Submit</Text>
           </TouchableOpacity>
         </View>
+        <Recipes />
       </View>
       <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
       <TouchableOpacity onPress={handleSignOut} style={styles.button}>

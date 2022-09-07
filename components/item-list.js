@@ -5,7 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Item } from "./items";
+import { Item } from "./Items";
 
 export const ItemList = ({ addedItems, removeItem }) => {
   return (
