@@ -6,15 +6,23 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   TextInput,
+  Button,
 } from "react-native";
 
+import { useNavigation } from "@react-navigation/native";
+
 export const ItemAdder = ({ item, setItem, handleAddItem }) => {
+  const navigation = useNavigation();
+
   return (
     <View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.addingITem}
       >
+        <View>
+          <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
+        </View>
         <TextInput
           style={styles.input}
           placeholder={"Add Ingredient"}
