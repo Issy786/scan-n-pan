@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Item } from "./Items";
 
 export const ItemList = ({ addedItems, removeItem }) => {
