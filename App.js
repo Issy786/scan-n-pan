@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -8,8 +8,8 @@ import Scanner from "./components/Scanner";
 
 import { ScrollView, StyleSheet, View, Text } from "react-native";
 import { NativeRouter, Routes, Route } from "react-router-native";
-import Title from "./components/title";
-import NavBar from "./components/nav";
+import Title from "./components/Title";
+import NavBar from "./components/Nav";
 
 export default function App() {
   return (
@@ -50,18 +50,3 @@ const styles = StyleSheet.create({
 });
 
 const Stack = createNativeStackNavigator();
-
-// export default function App() {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen
-//           options={{ headerShown: false }}
-//           name="Login"
-//           component={Login}
-//         />
-//         <Stack.Screen name="Home" component={Home} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }
