@@ -1,9 +1,19 @@
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Button,
+} from "react-native";
 import { getData } from "../functions";
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getData().then((res) => {
@@ -16,7 +26,19 @@ export default function Recipes() {
       {recipes.map((recipe) => {
         return (
           <View style={styles.recipe} key={recipe.name}>
-            <Text>{recipe.name}</Text>
+            <Button
+              title={recipe.name}
+              onPress={() =>
+                navigation.navigate("SingleRecipe", {
+                  ingredients: recipe.ingredients,
+                  directions: recipe.directions,
+                  img: recipe.img,
+                  name: recipe.name,
+                  cookingTime: recipe.cookingTime,
+                })
+              }
+            />
+
             <Image
               style={styles.testImg}
               source={{
