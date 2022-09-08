@@ -1,9 +1,19 @@
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Button,
+} from "react-native";
 import { getData } from "../functions";
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getData().then((res) => {
@@ -15,26 +25,40 @@ export default function Recipes() {
     <ScrollView>
       {recipes.map((recipe) => {
         return (
-          <View style={styles.recipe} key={recipe.name}>
-            <Text>{recipe.name}</Text>
-            <Image
-              style={styles.testImg}
-              source={{
-                uri: recipe.img,
-              }}
-            />
-            <Text>
-              Cooking Time:{recipe.cookingTime}
-              {"\n"}Ingredients:
-            </Text>
-            {recipe.ingredients.map((ingredient) => {
-              return (
-                <Text key={ingredient.ingredient}>
-                  {ingredient.ingredient} {ingredient.amount}
-                </Text>
-              );
-            })}
-            <Text>{recipe.directions}</Text>
+          <View style={styles.card}>
+            <View style={styles.cardContent} key={recipe.name}>
+              <Button
+                title={recipe.name}
+                onPress={() =>
+                  navigation.navigate("Recipe", {
+                    ingredients: recipe.ingredients,
+                    directions: recipe.directions,
+                    img: recipe.img,
+                    name: recipe.name,
+                    cookingTime: recipe.cookingTime,
+                  })
+                }
+              />
+
+              <Image
+                style={styles.testImg}
+                source={{
+                  uri: recipe.img,
+                }}
+              />
+              <Text>
+                Cooking Time:{recipe.cookingTime}
+                {"\n"}Ingredients:
+              </Text>
+              {recipe.ingredients.map((ingredient) => {
+                return (
+                  <Text key={ingredient.ingredient}>
+                    {ingredient.ingredient} {ingredient.amount}
+                  </Text>
+                );
+              })}
+              <Text>{recipe.directions}</Text>
+            </View>
           </View>
         );
       })}
@@ -42,6 +66,21 @@ export default function Recipes() {
   );
 }
 const styles = StyleSheet.create({
+  card: {
+    borderRadius: 6,
+    elevation: 3,
+    backgroundColor: "#fff",
+    shdowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
+  cardContent: {
+    marginHorizontal: 18,
+    marginVertical: 10,
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -50,16 +89,16 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   testImg: {
-    width: 66,
-    height: 58,
-  },
-  recipe: {
-    padding: "5%",
-    width: "90%",
-    alignItems: "center",
-    justifyContent: "center",
-    border: "solid",
-    borderColor: "black",
-    borderWidth: 1,
+    borderRadius: 6,
+    elevation: 3,
+    backgroundColor: "#fff",
+    shdowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 6,
+    width: 80,
+    height: 70,
   },
 });

@@ -8,8 +8,8 @@ import {
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
-import { ItemAdder } from "./item-adder";
-import { ItemList } from "./item-list";
+import { ItemAdder } from "./Item-adder";
+import { ItemList } from "./Item-list";
 import Recipes from "./Recipes";
 
 const Home = () => {
@@ -39,6 +39,10 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
+      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
         <View style={styles.itemWrapper}>
           <Text style={styles.sectionTile}>Ingredients</Text>
@@ -58,10 +62,6 @@ const Home = () => {
         </View>
         <Recipes />
       </View>
-      <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -78,17 +78,16 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#0782F9",
-    width: "60%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    marginTop: 20,
-    alignSelf: "center",
-    position: "absolute",
-    bottom: 35,
+    width: "50%",
+    fontSize: 16,
+    borderRadius: 5,
+    borderColor: "blue",
+    borderWidth: 2,
+    borderStyle: "solid",
   },
   buttonText: {
     color: "white",
+    textAlign: "center",
     fontWeight: "700",
     fontSize: 16,
   },
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   itemWrapper: {
-    padding: 80,
+    padding: 5,
     paddingHorizontal: 20,
   },
   sectionTile: {
