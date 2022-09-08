@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Item } from "./Items";
+import { Item } from "./items";
 
 export const ItemList = ({ addedItems, removeItem }) => {
   return (

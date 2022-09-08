@@ -23,8 +23,18 @@ export default function Recipes() {
                 uri: recipe.img,
               }}
             />
-            <Text>{recipe.ingredients}</Text>
-            <Text>{recipe.Directions}</Text>
+            <Text>
+              Cooking Time:{recipe.cookingTime}
+              {"\n"}Ingredients:
+            </Text>
+            {recipe.ingredients.map((ingredient) => {
+              return (
+                <Text key={ingredient.ingredient}>
+                  {ingredient.ingredient} {ingredient.amount}
+                </Text>
+              );
+            })}
+            <Text>{recipe.directions}</Text>
           </View>
         );
       })}
