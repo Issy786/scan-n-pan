@@ -1,10 +1,18 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Item } from "./Items";
 
-export const ItemList = ({ addedItems, removeItem }) => {
+export const ItemList = ({ addedItems, setAddedItems }) => {
+  const arr = [...new Set(addedItems)];
+
+  const removeItem = (index) => {
+    let itemsCopy = [...arr];
+    itemsCopy.splice(index, 1);
+    setAddedItems(itemsCopy);
+  };
+
   return (
     <View>
-      {addedItems.map((value, index) => {
+      {arr.map((value, index) => {
         return (
           <View key={index} style={styles.itemAdded}>
             <Item style={styles.ItemText} text={value} />

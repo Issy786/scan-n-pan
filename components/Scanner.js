@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 
@@ -6,6 +7,8 @@ export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Not yet scanned");
+
+  const navigation = useNavigation();
 
   const askForCamera = () => {
     (async () => {
@@ -37,6 +40,13 @@ export default function Scanner() {
         <Button
           title={"Scan again?"}
           onPress={() => setScanned(false)}
+          color="tomato"
+        />
+      )}
+      {scanned && (
+        <Button
+          title={"OK"}
+          onPress={() => navigation.navigate("Home", { text })}
           color="tomato"
         />
       )}

@@ -25,8 +25,8 @@ export default function Recipes() {
     <ScrollView>
       {recipes.map((recipe) => {
         return (
-          <View style={styles.card}>
-            <View style={styles.cardContent} key={recipe.name}>
+          <View style={styles.card} key={recipe.name}>
+            <View style={styles.cardContent}>
               <Button
                 title={recipe.name}
                 onPress={() =>
@@ -50,11 +50,13 @@ export default function Recipes() {
                 Cooking Time:{recipe.cookingTime}
                 {"\n"}Ingredients:
               </Text>
-              {recipe.ingredients.map((ingredient) => {
+              {recipe.ingredients.map((ingredient, index) => {
                 return (
-                  <Text key={ingredient.ingredient}>
-                    {ingredient.ingredient} {ingredient.amount}
-                  </Text>
+                  <View key={index}>
+                    <Text>
+                      {ingredient.ingredient} {ingredient.amount}
+                    </Text>
+                  </View>
                 );
               })}
               <Text>{recipe.directions}</Text>

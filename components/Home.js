@@ -5,9 +5,9 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { ItemAdder } from "./Item-adder";
 import { ItemList } from "./Item-list";
 import Recipes from "./Recipes";
@@ -17,16 +17,25 @@ const Home = () => {
   const [item, setItem] = useState();
   const [addedItems, setAddedItems] = useState([]);
 
+  const route = useRoute();
+
+  let barcodeText = null;
+
+  if (route.params && route.params.text) {
+    barcodeText = route.params.text;
+    addedItems.push(barcodeText);
+  }
+
   const handleAddItem = () => {
     setAddedItems([...addedItems, item]);
     setItem(null);
   };
 
-  const removeItem = (index) => {
-    let itemsCopy = [...addedItems];
-    itemsCopy.splice(index, 1);
-    setAddedItems(itemsCopy);
-  };
+  // const removeItem = (index) => {
+  //   let itemsCopy = [...addedItems];
+  //   itemsCopy.splice(index, 1);
+  //   setAddedItems(itemsCopy);
+  // };
 
   const handleSignOut = () => {
     auth
@@ -39,10 +48,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
       <View style={styles.container}>
         <View style={styles.itemWrapper}>
           <Text style={styles.sectionTile}>Ingredients</Text>
@@ -50,10 +55,12 @@ const Home = () => {
             item={item}
             setItem={setItem}
             handleAddItem={handleAddItem}
+            addedItems={addedItems}
+            setAddedItems={setAddedItems}
           />
           <View style={styles.tile}>
             <ScrollView>
-              <ItemList addedItems={addedItems} removeItem={removeItem} />
+              <ItemList addedItems={addedItems} setAddedItems={setAddedItems} />
             </ScrollView>
           </View>
           <TouchableOpacity>
@@ -62,6 +69,10 @@ const Home = () => {
         </View>
         <Recipes />
       </View>
+      <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
+      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -78,16 +89,17 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#0782F9",
-    width: "50%",
-    fontSize: 16,
-    borderRadius: 5,
-    borderColor: "blue",
-    borderWidth: 2,
-    borderStyle: "solid",
+    width: "60%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 35,
   },
   buttonText: {
     color: "white",
-    textAlign: "center",
     fontWeight: "700",
     fontSize: 16,
   },
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   itemWrapper: {
-    padding: 5,
+    padding: 80,
     paddingHorizontal: 20,
   },
   sectionTile: {
