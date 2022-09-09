@@ -11,32 +11,72 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-export const ItemAdder = ({ item, setItem, handleAddItem }) => {
+export const ItemAdder = ({ item, setItem, handleAddItem, barcodeText }) => {
   const navigation = useNavigation();
 
-  return (
-    <View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.addingITem}
-      >
-        <View>
-          <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder={"Add Ingredient"}
-          value={item}
-          onChangeText={(text) => setItem(text)}
-        />
-        <TouchableOpacity onPress={() => handleAddItem()}>
-          <View style={styles.addWrapper}>
-            <Text style={styles.addSymbol}>+</Text>
+  if (barcodeText !== null) {
+    return (
+      <View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.addingITem}
+        >
+          <View>
+            <Button
+              title="Scan"
+              onPress={() => navigation.navigate("Scanner")}
+            />
+            {/* <Text>{barcodeText}</Text>
+            <Button
+              title="Add"
+              onPress={() => {
+                handleAddItem;
+              }}
+            /> */}
           </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-    </View>
-  );
+          <TextInput
+            style={styles.input}
+            placeholder={"Add Ingredient"}
+            value={item}
+            defaultValue={barcodeText}
+            onChangeText={() => setItem(barcodeText)}
+          />
+          <TouchableOpacity onPress={() => handleAddItem()}>
+            <View style={styles.addWrapper}>
+              <Text style={styles.addSymbol}>+</Text>
+            </View>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
+    );
+  } else if (barcodeText == null) {
+    return (
+      <View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.addingITem}
+        >
+          <View>
+            <Button
+              title="Scan"
+              onPress={() => navigation.navigate("Scanner")}
+            />
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder={"Add Ingredient"}
+            value={item}
+            onChangeText={(text) => setItem(text)}
+          />
+          <TouchableOpacity onPress={() => handleAddItem()}>
+            <View style={styles.addWrapper}>
+              <Text style={styles.addSymbol}>+</Text>
+            </View>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

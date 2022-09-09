@@ -23,7 +23,6 @@ const Home = () => {
 
   if (route.params && route.params.text) {
     barcodeText = route.params.text;
-    addedItems.push(barcodeText);
   }
 
   const handleAddItem = () => {
@@ -31,11 +30,11 @@ const Home = () => {
     setItem(null);
   };
 
-  // const removeItem = (index) => {
-  //   let itemsCopy = [...addedItems];
-  //   itemsCopy.splice(index, 1);
-  //   setAddedItems(itemsCopy);
-  // };
+  const removeItem = (index) => {
+    let itemsCopy = [...addedItems];
+    itemsCopy.splice(index, 1);
+    setAddedItems(itemsCopy);
+  };
 
   const handleSignOut = () => {
     auth
@@ -57,10 +56,11 @@ const Home = () => {
             handleAddItem={handleAddItem}
             addedItems={addedItems}
             setAddedItems={setAddedItems}
+            barcodeText={barcodeText}
           />
           <View style={styles.tile}>
             <ScrollView>
-              <ItemList addedItems={addedItems} setAddedItems={setAddedItems} />
+              <ItemList addedItems={addedItems} removeItem={removeItem} />
             </ScrollView>
           </View>
           <TouchableOpacity>

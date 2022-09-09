@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import handleAddItem from "./Home";
 
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
