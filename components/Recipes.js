@@ -9,20 +9,32 @@ import {
 import { getData } from "../functions";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Picker } from "@react-native-picker/picker";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
+  const [items, setItems] = useState("cookingTime");
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    getData().then((res) => {
+    getData(items).then((res) => {
       setRecipes(res);
     });
-  }, []);
+  }, [items]);
 
   return (
     <ScrollView>
+      <Picker
+        style={{ width: 200 }}
+        selectedValue={items}
+        onValueChange={(itemValue, itemIndex) => {
+          setItems(itemValue);
+        }}
+      >
+        <Picker.Item label="Cooking Time" value="cookingTime" />
+        <Picker.Item label="Ingredients" value="ingredients" />
+      </Picker>
       {recipes.map((recipe) => {
         return (
           <View style={styles.card}>
