@@ -6,39 +6,45 @@ import Scanner from "./components/Scanner";
 import Recipe from "./components/Recipe";
 import Recipes from "./components/Recipes";
 import { LogBox, StyleSheet } from "react-native";
-import { barcodeContext } from "./context";
+import { barcodeContext, itemContext, addedItemsContext } from "./context";
 import { useState } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [barcodeData, setBarcodeData] = useState(null);
+  const [item, setItem] = useState();
+  const [addedItems, setAddedItems] = useState([]);
 
   LogBox.ignoreLogs(["Warning: ..."]);
   LogBox.ignoreAllLogs();
 
   return (
-    <barcodeContext.Provider value={{ barcodeData, setBarcodeData }}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerTitleAlign: "center",
-            headerStyle: { backgroundColor: "#ADD8E6" },
-            headerTintColor: "black",
-          }}
-        >
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Login"
-            component={Login}
-          />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Scanner" component={Scanner} />
-          <Stack.Screen name="Recipes" component={Recipes} />
-          <Stack.Screen name="Recipe" component={Recipe} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </barcodeContext.Provider>
+    <itemContext.Provider value={{ item, setItem }}>
+      <addedItemsContext.Provider value={{ addedItems, setAddedItems }}>
+        <barcodeContext.Provider value={{ barcodeData, setBarcodeData }}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{
+                headerTitleAlign: "center",
+                headerStyle: { backgroundColor: "#ADD8E6" },
+                headerTintColor: "black",
+              }}
+            >
+              <Stack.Screen
+                options={{ headerShown: false }}
+                name="Login"
+                component={Login}
+              />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Scanner" component={Scanner} />
+              <Stack.Screen name="Recipes" component={Recipes} />
+              <Stack.Screen name="Recipe" component={Recipe} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </barcodeContext.Provider>
+      </addedItemsContext.Provider>
+    </itemContext.Provider>
   );
 }
 

@@ -8,30 +8,19 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import { barcodeContext } from "../context";
+import { addedItemsContext, itemContext } from "../context";
 
 import { useNavigation } from "@react-navigation/native";
 
-export const ItemAdder = ({
-  item,
-  setItem,
-  handleAddItem,
-  addedItems,
-  setAddedItems,
-}) => {
+export const ItemAdder = () => {
   const navigation = useNavigation();
+  const { item, setItem } = useContext(itemContext);
+  const { addedItems, setAddedItems } = useContext(addedItemsContext);
 
-  const { barcodeData, setBarcodeData } = useContext(barcodeContext);
-
-  const handleScannedItem = () => {
-    setAddedItems([barcodeData, ...addedItems]);
+  const handleAddItem = () => {
+    setAddedItems([item, ...addedItems]);
     setItem(null);
-    setBarcodeData(null);
   };
-
-  if (barcodeData !== null) {
-    handleScannedItem();
-  }
 
   return (
     <View>

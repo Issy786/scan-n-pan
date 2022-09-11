@@ -2,13 +2,15 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { barcodeContext } from "../context";
+import { addedItemsContext, barcodeContext, itemContext } from "../context";
 
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Not yet scanned");
   const { barcodeData, setBarcodeData } = useContext(barcodeContext);
+  const { item, setItem } = useContext(itemContext);
+  const { addedItems, setAddedItems } = useContext(addedItemsContext);
 
   const navigation = useNavigation();
 
@@ -37,6 +39,12 @@ export default function Scanner() {
       });
   };
 
+  const handleScannedItem = () => {
+    setAddedItems([barcodeData, ...addedItems]);
+    setItem(null);
+    setBarcodeData(null);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.barcodebox}>
@@ -54,7 +62,9 @@ export default function Scanner() {
       {scanned && (
         <Button
           title={"Add Ingredient"}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => {
+            handleScannedItem(), navigation.navigate("Home");
+          }}
         />
       )}
     </View>

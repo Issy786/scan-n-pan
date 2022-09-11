@@ -4,30 +4,16 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
-  LogBox,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { auth } from "../firebase";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { ItemAdder } from "./Item-adder";
 import { ItemList } from "./Item-list";
 import Recipes from "./Recipes";
 
 const Home = () => {
   const navigation = useNavigation();
-  const [item, setItem] = useState();
-  const [addedItems, setAddedItems] = useState([]);
-
-  const handleAddItem = () => {
-    setAddedItems([item, ...addedItems]);
-    setItem(null);
-  };
-
-  const removeItem = (index) => {
-    let itemsCopy = [...addedItems];
-    itemsCopy.splice(index, 1);
-    setAddedItems(itemsCopy);
-  };
 
   const handleSignOut = () => {
     auth
@@ -43,16 +29,10 @@ const Home = () => {
       <View style={styles.container}>
         <View style={styles.itemWrapper}>
           <Text style={styles.sectionTile}>Ingredients</Text>
-          <ItemAdder
-            item={item}
-            setItem={setItem}
-            handleAddItem={handleAddItem}
-            addedItems={addedItems}
-            setAddedItems={setAddedItems}
-          />
+          <ItemAdder />
           <View style={styles.tile}>
             <ScrollView>
-              <ItemList addedItems={addedItems} removeItem={removeItem} />
+              <ItemList />
             </ScrollView>
           </View>
           <TouchableOpacity>
