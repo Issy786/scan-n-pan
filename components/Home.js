@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  LogBox,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
@@ -17,16 +18,8 @@ const Home = () => {
   const [item, setItem] = useState();
   const [addedItems, setAddedItems] = useState([]);
 
-  const route = useRoute();
-
-  let barcodeText = null;
-
-  if (route.params && route.params.text) {
-    barcodeText = route.params.text;
-  }
-
   const handleAddItem = () => {
-    setAddedItems([...addedItems, item]);
+    setAddedItems([item, ...addedItems]);
     setItem(null);
   };
 
@@ -56,7 +49,6 @@ const Home = () => {
             handleAddItem={handleAddItem}
             addedItems={addedItems}
             setAddedItems={setAddedItems}
-            barcodeText={barcodeText}
           />
           <View style={styles.tile}>
             <ScrollView>

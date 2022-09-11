@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   del: {
-    borderColor: "black",
+    borderColor: "tomato",
+    color: "tomato",
     borderRadius: 10,
     borderWidth: 1,
     padding: 2,

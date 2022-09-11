@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,75 +8,54 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import { barcodeContext } from "../context";
 
 import { useNavigation } from "@react-navigation/native";
 
-export const ItemAdder = ({ item, setItem, handleAddItem, barcodeText }) => {
+export const ItemAdder = ({
+  item,
+  setItem,
+  handleAddItem,
+  addedItems,
+  setAddedItems,
+}) => {
   const navigation = useNavigation();
 
-  if (barcodeText !== null) {
-    return (
-      <View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.addingITem}
-        >
-          <View>
-            <Button
-              title="Scan"
-              onPress={() => navigation.navigate("Scanner")}
-            />
-            {/* <Text>{barcodeText}</Text>
-            <Button
-              title="Add"
-              onPress={() => {
-                handleAddItem;
-              }}
-            /> */}
-          </View>
-          <TextInput
-            style={styles.input}
-            placeholder={"Add Ingredient"}
-            value={item}
-            defaultValue={barcodeText}
-            onChangeText={() => setItem(barcodeText)}
-          />
-          <TouchableOpacity onPress={() => handleAddItem()}>
-            <View style={styles.addWrapper}>
-              <Text style={styles.addSymbol}>+</Text>
-            </View>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </View>
-    );
-  } else if (barcodeText == null) {
-    return (
-      <View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.addingITem}
-        >
-          <View>
-            <Button
-              title="Scan"
-              onPress={() => navigation.navigate("Scanner")}
-            />
-          </View>
-          <TextInput
-            style={styles.input}
-            placeholder={"Add Ingredient"}
-            value={item}
-            onChangeText={(text) => setItem(text)}
-          />
-          <TouchableOpacity onPress={() => handleAddItem()}>
-            <View style={styles.addWrapper}>
-              <Text style={styles.addSymbol}>+</Text>
-            </View>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </View>
-    );
+  const { barcodeData, setBarcodeData } = useContext(barcodeContext);
+
+  const handleScannedItem = () => {
+    setAddedItems([barcodeData, ...addedItems]);
+    setItem(null);
+    setBarcodeData(null);
+  };
+
+  if (barcodeData !== null) {
+    handleScannedItem();
   }
+
+  return (
+    <View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.addingITem}
+      >
+        <View>
+          <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
+        </View>
+        <TextInput
+          style={styles.input}
+          placeholder={"Add Ingredient"}
+          value={item}
+          onChangeText={(text) => setItem(text)}
+        />
+        <TouchableOpacity onPress={() => handleAddItem()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addSymbol}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
