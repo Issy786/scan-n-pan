@@ -16,7 +16,7 @@ export const getData = (items) => {
         recipeArr.push(itemData);
       });
 
-      return testArr;
+      return recipeArr;
     });
 };
 
