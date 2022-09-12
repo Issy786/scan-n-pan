@@ -9,7 +9,7 @@ import React from "react";
 import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { ItemAdder } from "./Item-adder";
-import { ItemList } from "./Item-list";
+import { ItemList } from "./item-list";
 import Recipes from "./Recipes";
 
 const Home = () => {

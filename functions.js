@@ -1,7 +1,6 @@
 import { db } from "./firebase";
 
 export const getData = (items) => {
-  console.log(items);
   return db
     .collection("Recipes")
     .orderBy(`${items}`)
@@ -10,7 +9,11 @@ export const getData = (items) => {
       const testArr = [];
       const newData = querySnapshot.forEach((snapshot) => {
         let data = snapshot.data();
-        testArr.push(data);
+        const itemData = {
+          data: data,
+          id: snapshot.id,
+        };
+        testArr.push(itemData);
       });
 
       return testArr;

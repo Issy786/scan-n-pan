@@ -37,17 +37,18 @@ export default function Recipes() {
       </Picker>
       {recipes.map((recipe) => {
         return (
-          <View style={styles.card} key={recipe.name}>
+          <View style={styles.card} key={recipe.data.name}>
             <View style={styles.cardContent}>
               <Button
-                title={recipe.name}
+                title={recipe.data.name}
                 onPress={() =>
                   navigation.navigate("Recipe", {
-                    ingredients: recipe.ingredients,
-                    directions: recipe.directions,
-                    img: recipe.img,
-                    name: recipe.name,
-                    cookingTime: recipe.cookingTime,
+                    ingredients: recipe.data.ingredients,
+                    directions: recipe.data.directions,
+                    img: recipe.data.img,
+                    name: recipe.data.name,
+                    cookingTime: recipe.data.cookingTime,
+                    id: recipe.id,
                   })
                 }
               />
@@ -55,14 +56,14 @@ export default function Recipes() {
               <Image
                 style={styles.testImg}
                 source={{
-                  uri: recipe.img,
+                  uri: recipe.data.img,
                 }}
               />
               <Text>
-                Cooking Time:{recipe.cookingTime}
+                Cooking Time:{recipe.data.cookingTime}
                 {"\n"}Ingredients:
               </Text>
-              {recipe.ingredients.map((ingredient, index) => {
+              {recipe.data.ingredients.map((ingredient, index) => {
                 return (
                   <View key={index}>
                     <Text>
@@ -71,7 +72,7 @@ export default function Recipes() {
                   </View>
                 );
               })}
-              <Text>{recipe.directions}</Text>
+              <Text>{recipe.data.directions}</Text>
             </View>
           </View>
         );

@@ -6,11 +6,38 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { getData } from "../functions";
 
-export default function Rating() {
-  const [defaultRating, setdefaultRating] = useState(1);
+export default function Rating({ value }) {
+  const [defaultRating, setdefaultRating] = useState("");
   const [maxRating, setmaxRating] = useState([1, 2, 3, 4, 5]);
+  const [rating, setRating] = useState({});
+
+  const setdefaultRatingFunc = (ratings) => {
+    const sum = ratings.reduce((a, b) => a + b, 0);
+    const avg = sum / ratings.length || 0;
+    setdefaultRating(Math.round(avg));
+  };
+
+  useEffect(() => {
+    getData("cookingTime").then((res) => {
+      res.forEach((recipe) => {
+        if (recipe.id === value) {
+          setRating(recipe);
+          setdefaultRatingFunc(recipe.data.rating);
+        }
+      });
+    });
+  }, [setRating]);
+
+  const submitRating = async (rate) => {
+    await updateDoc(doc(db, "Recipes", value), {
+      rating: [...rating.data.rating, rate],
+    });
+  };
 
   const starImgFilled =
     "https://raw.githubusercontent.com/tranhonghan/images/main/star_filled.png";
@@ -25,7 +52,9 @@ export default function Rating() {
             <TouchableOpacity
               activeOpacity={0.7}
               key={item}
-              onPress={() => setdefaultRating(item)}
+              onPress={() => {
+                setdefaultRating(item);
+              }}
             >
               <Image
                 style={styles.starImgStyle}
@@ -47,7 +76,10 @@ export default function Rating() {
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.buttonStyle}
-        onPress={() => alert(defaultRating + " " + stars)}
+        onPress={() => {
+          alert(defaultRating + " " + stars);
+          submitRating(defaultRating);
+        }}
       >
         <Text style={styles.buttonText}>Add Rating</Text>
       </TouchableOpacity>

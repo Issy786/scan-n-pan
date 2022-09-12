@@ -4,6 +4,7 @@ import Rating from "./Rating";
 
 export default function Recipe() {
   const route = useRoute();
+
   return (
     <View style={styles.card}>
       <View style={styles.cardContent}>
@@ -27,7 +28,7 @@ export default function Recipe() {
         })}
         <Text>{route.params.directions}</Text>
       </View>
-      <Rating />
+      <Rating value={route.params.id} />
     </View>
   );
 }
