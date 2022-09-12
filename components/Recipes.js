@@ -37,8 +37,8 @@ export default function Recipes() {
       </Picker>
       {recipes.map((recipe) => {
         return (
-          <View style={styles.card}>
-            <View style={styles.cardContent} key={recipe.data.name}>
+          <View style={styles.card} key={recipe.data.name}>
+            <View style={styles.cardContent}>
               <Button
                 title={recipe.data.name}
                 onPress={() =>
@@ -63,11 +63,13 @@ export default function Recipes() {
                 Cooking Time:{recipe.data.cookingTime}
                 {"\n"}Ingredients:
               </Text>
-              {recipe.data.ingredients.map((ingredient) => {
+              {recipe.data.ingredients.map((ingredient, index) => {
                 return (
-                  <Text key={ingredient.ingredient}>
-                    {ingredient.ingredient} {ingredient.amount}
-                  </Text>
+                  <View key={index}>
+                    <Text>
+                      {ingredient.ingredient} {ingredient.amount}
+                    </Text>
+                  </View>
                 );
               })}
               <Text>{recipe.data.directions}</Text>

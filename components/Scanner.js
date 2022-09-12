@@ -1,11 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { addedItemsContext, barcodeContext, itemContext } from "../context";
 
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Not yet scanned");
+  const { barcodeData, setBarcodeData } = useContext(barcodeContext);
+  const { item, setItem } = useContext(itemContext);
+  const { addedItems, setAddedItems } = useContext(addedItemsContext);
+
+  const navigation = useNavigation();
 
   const askForCamera = () => {
     (async () => {
@@ -20,7 +27,22 @@ export default function Scanner() {
 
   const handleScanned = ({ data }) => {
     setScanned(true);
-    setText(data);
+
+    fetch(`https://en.openfoodfacts.org/api/v0/product/${data}`)
+      .then((response) => response.json())
+      .then((json) => {
+        setBarcodeData(json.product.product_name_en);
+        setText(json.product.product_name_en);
+      })
+      .catch(() => {
+        alert("item not found, please use a food item!");
+      });
+  };
+
+  const handleScannedItem = () => {
+    setAddedItems([barcodeData, ...addedItems]);
+    setItem(null);
+    setBarcodeData(null);
   };
 
   return (
@@ -32,12 +54,17 @@ export default function Scanner() {
         />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-
+      <View style={styles.buttonText}>
+        {scanned && (
+          <Button title={"Scan again?"} onPress={() => setScanned(false)} />
+        )}
+      </View>
       {scanned && (
         <Button
-          title={"Scan again?"}
-          onPress={() => setScanned(false)}
-          color="tomato"
+          title={"Add Ingredient"}
+          onPress={() => {
+            handleScannedItem(), navigation.navigate("Home");
+          }}
         />
       )}
     </View>
@@ -64,10 +91,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 20,
     color: "white",
+    borderColor: "white",
+    borderWidth: 2,
+    borderRadius: 20,
+    padding: 10,
   },
   camera: {
     borderRadius: 30,
     height: 500,
     width: 400,
+  },
+  buttonText: {
+    marginBottom: 2,
   },
 });
