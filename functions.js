@@ -6,14 +6,14 @@ export const getData = (items) => {
     .orderBy(`${items}`)
     .get()
     .then((querySnapshot) => {
-      const testArr = [];
+      const recipeArr = [];
       const newData = querySnapshot.forEach((snapshot) => {
         let data = snapshot.data();
         const itemData = {
           data: data,
           id: snapshot.id,
         };
-        testArr.push(itemData);
+        recipeArr.push(itemData);
       });
 
       return testArr;
