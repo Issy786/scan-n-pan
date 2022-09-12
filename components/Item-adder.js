@@ -35,6 +35,7 @@ export const ItemAdder = () => {
           style={styles.input}
           placeholder={"Add Ingredient"}
           value={item}
+          required
           onChangeText={(text) => setItem(text.toLowerCase())}
         />
         <TouchableOpacity onPress={() => handleAddItem()}>
