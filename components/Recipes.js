@@ -6,22 +6,30 @@ import {
   ScrollView,
   Button,
 } from "react-native";
-import { getData } from "../functions";
-import { useState, useEffect } from "react";
+import { getData, recipeFilter } from "../functions";
+import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
+import { addedItemsContext } from "../context";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
   const [items, setItems] = useState("cookingTime");
+  const { addedItems } = useContext(addedItemsContext);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    getData(items).then((res) => {
-      setRecipes(res);
-    });
-  }, [items]);
+    if (addedItems.length > 0) {
+      recipeFilter(addedItems).then((res) => {
+        setRecipes(res);
+      });
+    } else if (addedItems.length === 0) {
+      getData(items).then((res) => {
+        setRecipes(res);
+      });
+    }
+  }, [addedItems]);
 
   return (
     <ScrollView>
