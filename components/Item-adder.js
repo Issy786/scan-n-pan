@@ -17,9 +17,13 @@ export const ItemAdder = () => {
   const { addedItems, setAddedItems } = useContext(addedItemsContext);
 
   const handleAddItem = () => {
-    const newItem = item.replace(/\s$|^\s/g, "");
-    setAddedItems([newItem, ...addedItems]);
-    setItem(null);
+    if (item !== null) {
+      const newItem = item.replace(/\s$|^\s/g, "");
+      setAddedItems([newItem, ...addedItems]);
+      setItem(null);
+    } else if (item === null) {
+      alert("Please type in an ingredient!");
+    }
   };
 
   return (
