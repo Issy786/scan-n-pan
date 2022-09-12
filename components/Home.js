@@ -5,7 +5,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { auth } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import { ItemAdder } from "./Item-adder";
@@ -14,19 +14,6 @@ import Recipes from "./Recipes";
 
 const Home = () => {
   const navigation = useNavigation();
-  const [item, setItem] = useState();
-  const [addedItems, setAddedItems] = useState([]);
-
-  const handleAddItem = () => {
-    setAddedItems([...addedItems, item]);
-    setItem(null);
-  };
-
-  const removeItem = (index) => {
-    let itemsCopy = [...addedItems];
-    itemsCopy.splice(index, 1);
-    setAddedItems(itemsCopy);
-  };
 
   const handleSignOut = () => {
     auth
@@ -46,14 +33,10 @@ const Home = () => {
       <View style={styles.container}>
         <View style={styles.itemWrapper}>
           <Text style={styles.sectionTile}>Ingredients</Text>
-          <ItemAdder
-            item={item}
-            setItem={setItem}
-            handleAddItem={handleAddItem}
-          />
+          <ItemAdder />
           <View style={styles.tile}>
             <ScrollView>
-              <ItemList addedItems={addedItems} removeItem={removeItem} />
+              <ItemList />
             </ScrollView>
           </View>
           <TouchableOpacity>
@@ -78,16 +61,17 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: "#0782F9",
-    width: "50%",
-    fontSize: 16,
-    borderRadius: 5,
-    borderColor: "blue",
-    borderWidth: 2,
-    borderStyle: "solid",
+    width: "60%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+    alignSelf: "center",
+    position: "absolute",
+    bottom: 35,
   },
   buttonText: {
     color: "white",
-    textAlign: "center",
     fontWeight: "700",
     fontSize: 16,
   },
@@ -103,7 +87,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   itemWrapper: {
-    padding: 5,
+    padding: 80,
     paddingHorizontal: 20,
   },
   sectionTile: {

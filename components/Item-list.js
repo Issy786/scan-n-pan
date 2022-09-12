@@ -1,7 +1,17 @@
+import { useContext } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { addedItemsContext } from "../context";
 import { Item } from "./Items";
 
-export const ItemList = ({ addedItems, removeItem }) => {
+export const ItemList = () => {
+  const { addedItems, setAddedItems } = useContext(addedItemsContext);
+
+  const removeItem = (index) => {
+    let itemsCopy = [...addedItems];
+    itemsCopy.splice(index, 1);
+    setAddedItems(itemsCopy);
+  };
+
   return (
     <View>
       {addedItems.map((value, index) => {
@@ -29,7 +39,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   del: {
-    borderColor: "black",
+    borderColor: "tomato",
+    color: "tomato",
     borderRadius: 10,
     borderWidth: 1,
     padding: 2,

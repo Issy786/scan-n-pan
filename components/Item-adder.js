@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,11 +8,18 @@ import {
   TextInput,
   Button,
 } from "react-native";
-
+import { addedItemsContext, itemContext } from "../context";
 import { useNavigation } from "@react-navigation/native";
 
-export const ItemAdder = ({ item, setItem, handleAddItem }) => {
+export const ItemAdder = () => {
   const navigation = useNavigation();
+  const { item, setItem } = useContext(itemContext);
+  const { addedItems, setAddedItems } = useContext(addedItemsContext);
+
+  const handleAddItem = () => {
+    setAddedItems([item, ...addedItems]);
+    setItem(null);
+  };
 
   return (
     <View>
