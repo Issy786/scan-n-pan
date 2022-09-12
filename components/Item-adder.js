@@ -17,7 +17,8 @@ export const ItemAdder = () => {
   const { addedItems, setAddedItems } = useContext(addedItemsContext);
 
   const handleAddItem = () => {
-    setAddedItems([item, ...addedItems]);
+    const newItem = item.replace(/\s$|^\s/g, "");
+    setAddedItems([newItem, ...addedItems]);
     setItem(null);
   };
 
@@ -34,7 +35,7 @@ export const ItemAdder = () => {
           style={styles.input}
           placeholder={"Add Ingredient"}
           value={item}
-          onChangeText={(text) => setItem(text)}
+          onChangeText={(text) => setItem(text.toLowerCase())}
         />
         <TouchableOpacity onPress={() => handleAddItem()}>
           <View style={styles.addWrapper}>
