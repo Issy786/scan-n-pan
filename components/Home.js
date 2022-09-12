@@ -23,9 +23,13 @@ const Home = () => {
       })
       .catch((error) => alert(error.message));
   };
-
+  const username = auth.currentUser.email.split("@")[0];
   return (
     <View style={styles.container}>
+      <Text style={styles.usernameText}>{username}</Text>
+      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+        <Text style={styles.buttonText}>Sign out</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
         <View style={styles.itemWrapper}>
           <Text style={styles.sectionTile}>Ingredients</Text>
@@ -41,10 +45,6 @@ const Home = () => {
         </View>
         <Recipes />
       </View>
-      <Text style={styles.usernameText}>{auth.currentUser?.email}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
     </View>
   );
 };

@@ -9,7 +9,6 @@ import {
   Button,
 } from "react-native";
 import { addedItemsContext, itemContext } from "../context";
-
 import { useNavigation } from "@react-navigation/native";
 
 export const ItemAdder = () => {

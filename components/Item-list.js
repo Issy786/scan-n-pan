@@ -11,6 +11,7 @@ export const ItemList = () => {
     itemsCopy.splice(index, 1);
     setAddedItems(itemsCopy);
   };
+
   return (
     <View>
       {addedItems.map((value, index) => {
