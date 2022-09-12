@@ -1,5 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import { View, Text, Image, StyleSheet } from "react-native";
+import Rating from "./Rating";
 
 export default function Recipe() {
   const route = useRoute();
@@ -26,6 +27,7 @@ export default function Recipe() {
         })}
         <Text>{route.params.directions}</Text>
       </View>
+      <Rating />
     </View>
   );
 }
