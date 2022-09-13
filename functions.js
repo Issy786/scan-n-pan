@@ -20,6 +20,8 @@ export const getData = (items) => {
     });
 };
 
+let checker = (arr, target) => target.every((v) => arr.includes(v));
+
 export const recipeFilter = (addedItems) => {
   return db
     .collection("Recipes")
@@ -33,7 +35,9 @@ export const recipeFilter = (addedItems) => {
           data: data,
           id: snapshot.id,
         };
-        testArr.push(itemData);
+        if (checker(itemData.data.hiddenArr, addedItems)) {
+          testArr.push(itemData);
+        }
       });
       return testArr;
     });
