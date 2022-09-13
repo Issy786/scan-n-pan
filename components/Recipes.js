@@ -57,12 +57,13 @@ export default function Recipes() {
                     name: recipe.data.name,
                     cookingTime: recipe.data.cookingTime,
                     id: recipe.id,
+                    review: recipe.data.review,
                   })
                 }
               />
 
               <Image
-                style={styles.testImg}
+                style={styles.Img}
                 source={{
                   uri: recipe.data.img,
                 }}
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 7,
   },
-  testImg: {
+  Img: {
     borderRadius: 6,
     elevation: 3,
     backgroundColor: "#fff",

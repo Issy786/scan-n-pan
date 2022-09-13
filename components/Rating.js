@@ -126,4 +126,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
   },
+  textStyle: {
+    fontWeight: "700",
+    textAlign: "center",
+    margin: 5,
+    color: "darkorange",
+  },
 });

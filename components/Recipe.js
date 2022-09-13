@@ -1,35 +1,41 @@
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import Rating from "./Rating";
+import Review from "./Review-adder";
+import Reviews from "./Reviews-list";
 
 export default function Recipe() {
   const route = useRoute();
 
   return (
-    <View style={styles.card}>
+    <ScrollView style={styles.card}>
       <View style={styles.cardContent}>
-        <Text style={styles.name}>{route.params.name}</Text>
+        <Text style={styles.title}>{route.params.name}</Text>
         <Image
-          style={styles.testImg}
+          style={styles.Img}
           source={{
             uri: route.params.img,
           }}
         />
-        <Text>
-          Cooking Time:{route.params.cookingTime}
-          {"\n"}Ingredients:
-        </Text>
-        {route.params.ingredients.map((ingredient) => {
+        <Text style={styles.card}>Cooking Time:{route.params.cookingTime}</Text>
+        <Text style={styles.title}>Ingredients:</Text>
+        {route.params.ingredients.map((ingredient, index) => {
           return (
-            <Text key={ingredient.ingredient}>
-              {ingredient.ingredient} {ingredient.amount}
-            </Text>
+            <View key={index} style={styles.card}>
+              <Text>
+                {ingredient.ingredient} {ingredient.amount}
+              </Text>
+            </View>
           );
         })}
-        <Text>{route.params.directions}</Text>
+        <Text style={styles.title}>Directions:</Text>
+        <Text style={styles.cardContent}>{route.params.directions}</Text>
       </View>
       <Rating value={route.params.id} />
-    </View>
+      <Text style={styles.reviewsTitle}>Reviews</Text>
+      <Review value={route.params.id} />
+      <Reviews value={route.params.review} />
+    </ScrollView>
   );
 }
 
@@ -48,6 +54,14 @@ const styles = StyleSheet.create({
   cardContent: {
     marginHorizontal: 18,
     marginVertical: 10,
+    backgroundColor: "beige",
+    borderRadius: 6,
+    elevation: 3,
+    padding: 5,
+    shdowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
   container: {
     flex: 1,
@@ -56,7 +70,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 7,
   },
-  testImg: {
+  Img: {
+    flexDirection: "row",
+    flex: 1,
+    margin: "auto",
     borderRadius: 6,
     elevation: 3,
     backgroundColor: "#fff",
@@ -64,10 +81,10 @@ const styles = StyleSheet.create({
     shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    marginHorizontal: 4,
+    marginHorizontal: "10%",
     marginVertical: 6,
-    width: 80,
-    height: 70,
+    width: "80%",
+    height: 190,
   },
   name: {
     alignContent: "center",
@@ -80,5 +97,25 @@ const styles = StyleSheet.create({
     border: "solid",
     borderColor: "black",
     borderWidth: 1,
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "700",
+
+    padding: 5,
+    marginBottom: 5,
+    borderRadius: 5,
+  },
+  reviewsTitle: {
+    textAlign: "center",
+    backgroundColor: "#ADD8E6",
+    fontSize: 18,
+    fontWeight: "700",
+    width: "30%",
+    marginHorizontal: "35%",
+    padding: 5,
+    marginBottom: 5,
+    borderRadius: 5,
   },
 });
