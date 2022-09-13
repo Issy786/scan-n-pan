@@ -23,28 +23,30 @@ const Home = () => {
       })
       .catch((error) => alert(error.message));
   };
-  const username = auth.currentUser.email.split("@")[0];
   return (
     <View style={styles.container}>
-      <Text style={styles.usernameText}>{username}</Text>
-      <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
-      <View style={styles.container}>
-        <View style={styles.itemWrapper}>
-          <Text style={styles.sectionTile}>Ingredients</Text>
-          <ItemAdder />
-          <View style={styles.tile}>
-            <ScrollView>
-              <ItemList />
-            </ScrollView>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.itemWrapper}>
+            <Text style={styles.sectionTile}>Ingredients</Text>
+            <ItemAdder />
+            <View style={styles.tile}>
+              <ScrollView>
+                <ItemList />
+              </ScrollView>
+            </View>
+            <TouchableOpacity>
+              <Text style={styles.submit}>Submit</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity>
-            <Text style={styles.submit}>Submit</Text>
+          <Recipes />
+        </View>
+        <View style={styles.user}>
+          <TouchableOpacity onPress={handleSignOut} style={styles.button}>
+            <Text style={styles.buttonText}>Sign out</Text>
           </TouchableOpacity>
         </View>
-        <Recipes />
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -55,42 +57,35 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     flex: 1,
-
     alignItems: "center",
     marginTop: 10,
   },
   button: {
     backgroundColor: "#0782F9",
-    width: "50%",
-    padding: 15,
+    width: "30%",
+    padding: 5,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 20,
     alignSelf: "center",
     position: "absolute",
-    top: 12,
+    bottom: 0,
   },
   buttonText: {
     color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
-  usernameText: {
-    width: "50%",
-    backgroundColor: "white",
-    color: "blue",
-    fontSize: 16,
-    borderRadius: 5,
-    borderColor: "blue",
-    borderWidth: 2,
-    borderStyle: "solid",
-    textAlign: "center",
+  user: {
+    marginTop: 10,
+    padding: 10,
   },
   itemWrapper: {
-    padding: 80,
+    padding: 5,
     paddingHorizontal: 20,
   },
   sectionTile: {
+    marginBottom: 5,
     fontSize: 24,
     fontWeight: "bold",
   },
