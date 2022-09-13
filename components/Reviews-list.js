@@ -3,7 +3,6 @@ import React from "react";
 
 export default function Reviews({ value }) {
   if (value) {
-    console.log(value);
     return (
       <View style={styles.card}>
         {value.map((data, index) => {

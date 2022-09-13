@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Scanner from "./components/Scanner";
 import Recipe from "./components/Recipe";
 import Recipes from "./components/Recipes";
-import { LogBox, StyleSheet } from "react-native";
+import { LogBox, StyleSheet, Image } from "react-native";
 import { barcodeContext, itemContext, addedItemsContext } from "./context";
 import { useState } from "react";
 
@@ -27,19 +27,37 @@ export default function App() {
             <Stack.Navigator
               screenOptions={{
                 headerTitleAlign: "center",
-                headerStyle: { backgroundColor: "#ADD8E6" },
-                headerTintColor: "black",
+                headerBackground: () => (
+                  <Image
+                    style={StyleSheet.absoluteFill}
+                    source={{
+                      uri: "https://pantalking.com/wp-content/uploads/2022/04/What-Is-Non-Stick-Pan.jpg",
+                    }}
+                  />
+                ),
+                headerTintColor: "white",
+                headerTitleStyle: {
+                  fontWeight: "900",
+                },
               }}
             >
               <Stack.Screen
-                options={{ headerShown: false }}
+                options={{ headerShown: true, title: "" }}
                 name="Login"
                 component={Login}
               />
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ title: "" }}
+              />
               <Stack.Screen name="Scanner" component={Scanner} />
               <Stack.Screen name="Recipes" component={Recipes} />
-              <Stack.Screen name="Recipe" component={Recipe} />
+              <Stack.Screen
+                name="Recipe"
+                component={Recipe}
+                options={{ title: "" }}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </barcodeContext.Provider>
@@ -55,5 +73,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 7,
+  },
+  header: {
+    color: "red",
   },
 });
