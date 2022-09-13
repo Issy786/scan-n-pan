@@ -51,7 +51,11 @@ export default function App() {
                 component={Home}
                 options={{ title: "" }}
               />
-              <Stack.Screen name="Scanner" component={Scanner} />
+              <Stack.Screen
+                name="Scanner"
+                component={Scanner}
+                options={{ title: "" }}
+              />
               <Stack.Screen name="Recipes" component={Recipes} />
               <Stack.Screen
                 name="Recipe"

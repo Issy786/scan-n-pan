@@ -27,6 +27,7 @@ const Review = ({ value }) => {
 
   const handleSubmit = () => {
     setText(async (data) => {
+      data = `${data} \n \n ${new Date().toLocaleString()}`;
       try {
         await updateDoc(doc(db, "Recipes", value), {
           review: [...review.data.review, data],

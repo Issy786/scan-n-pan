@@ -35,9 +35,6 @@ const Home = () => {
                 <ItemList />
               </ScrollView>
             </View>
-            <TouchableOpacity>
-              <Text style={styles.submit}>Submit</Text>
-            </TouchableOpacity>
           </View>
           <Recipes />
         </View>
