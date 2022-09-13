@@ -19,10 +19,11 @@ export const ItemAdder = () => {
   const handleAddItem = () => {
     if (item !== null) {
       const newItem = item.replace(/\s$|^\s/g, "");
-      setAddedItems([newItem, ...addedItems]);
+      const lowerCaseItem = newItem.toLowerCase();
+      setAddedItems([lowerCaseItem, ...addedItems]);
       setItem(null);
     } else if (item === null) {
-      alert("Please type in an ingredient!");
+      alert("Please enter an ingredient!");
     }
   };
 
@@ -39,8 +40,7 @@ export const ItemAdder = () => {
           style={styles.input}
           placeholder={"Add Ingredient"}
           value={item}
-          required
-          onChangeText={(text) => setItem(text.toLowerCase())}
+          onChangeText={(text) => setItem(text)}
         />
         <TouchableOpacity onPress={() => handleAddItem()}>
           <View style={styles.addWrapper}>
