@@ -23,7 +23,7 @@ export const ItemAdder = () => {
       setAddedItems([lowerCaseItem, ...addedItems]);
       setItem(null);
     } else if (item === null) {
-      alert("Please enter an ingredient!");
+      alert("Please enter an ingredient");
     }
   };
 
