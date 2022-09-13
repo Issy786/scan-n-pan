@@ -1,11 +1,17 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { reviewContext } from "../context";
 
 export default function Reviews({ value }) {
-  if (value) {
+  const { newReview } = useContext(reviewContext);
+
+  let newArr = [...value];
+  if (value && newReview !== null) {
+    newArr = [...value, newReview];
+
     return (
       <View style={styles.card}>
-        {value.map((data, index) => {
+        {newArr.map((data, index) => {
           return (
             <View key={index}>
               <Text style={styles.cardContent}>{data}</Text>

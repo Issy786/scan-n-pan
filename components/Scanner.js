@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { addedItemsContext, barcodeContext, itemContext } from "../context";
 
@@ -47,26 +47,33 @@ export default function Scanner() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.barcodebox}>
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleScanned}
-          style={styles.camera}
-        />
-      </View>
-      <Text style={styles.maintext}>{text}</Text>
-      <View style={styles.buttonText}>
-        {scanned && (
-          <Button title={"Scan again?"} onPress={() => setScanned(false)} />
-        )}
-      </View>
-      {scanned && (
-        <Button
-          title={"Add Ingredient"}
-          onPress={() => {
-            handleScannedItem(), navigation.navigate("Home");
-          }}
-        />
-      )}
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleScanned}
+        style={styles.camera}
+      >
+        <View>
+          <Text style={styles.maintext}>{text}</Text>
+        </View>
+        <View style={styles.buttonText}>
+          {scanned && (
+            <Pressable style={styles.scan} onPress={() => setScanned(false)}>
+              <Text style={styles.scanText}>{"Scan Again"}</Text>
+            </Pressable>
+          )}
+        </View>
+        <View style={styles.addButton}>
+          {scanned && (
+            <Pressable
+              style={styles.scan}
+              onPress={() => {
+                handleScannedItem(), navigation.navigate("Home");
+              }}
+            >
+              <Text style={styles.scanText}>{"Add Ingredient"}</Text>
+            </Pressable>
+          )}
+        </View>
+      </BarCodeScanner>
     </View>
   );
 }
@@ -74,19 +81,8 @@ export default function Scanner() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  barcodebox: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 300,
-    width: 300,
-    overFlow: "hidden",
-    borderRadius: 30,
-    backgroundColor: "tomato",
-  },
+
   maintext: {
     fontSize: 16,
     margin: 20,
@@ -97,11 +93,22 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   camera: {
-    borderRadius: 30,
-    height: 500,
-    width: 400,
+    flex: 10,
   },
   buttonText: {
     marginBottom: 2,
+    bottom: 20,
+  },
+  scan: {
+    padding: 10,
+    fontSize: 15,
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  scanText: {
+    color: "white",
+  },
+  addButton: {
+    bottom: 1,
   },
 });
