@@ -29,7 +29,7 @@ export default function Recipes() {
         setRecipes(res);
       });
     }
-  }, [addedItems]);
+  }, [addedItems, items]);
 
   return (
     <ScrollView>
@@ -41,7 +41,8 @@ export default function Recipes() {
         }}
       >
         <Picker.Item label="Cooking Time" value="cookingTime" />
-        <Picker.Item label="Ingredients" value="ingredients" />
+        <Picker.Item label="Name" value="name" />
+        <Picker.Item label="Rating" value="rating" />
       </Picker>
       {recipes.map((recipe) => {
         return (
