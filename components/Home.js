@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 10,
+    backgroundColor: "rgba(43,43,43,1)",
   },
   button: {
     backgroundColor: "tomato",
