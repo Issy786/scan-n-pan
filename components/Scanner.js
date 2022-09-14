@@ -2,12 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
 import { addedItemsContext, barcodeContext, itemContext } from "../context";
 
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Not yet scanned");
+  const [text, setText] = useState("Please scan an item");
   const { barcodeData, setBarcodeData } = useContext(barcodeContext);
   const { item, setItem } = useContext(itemContext);
   const { addedItems, setAddedItems } = useContext(addedItemsContext);
@@ -16,7 +17,7 @@ export default function Scanner() {
 
   const askForCamera = () => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   };
@@ -47,11 +48,29 @@ export default function Scanner() {
     setBarcodeData(null);
   };
 
+  if (hasPermission === null) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>Requesting for camera permission</Text>
+      </View>
+    );
+  }
+
+  if (hasPermission === false) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ margin: 10 }}>No access to camera</Text>
+        <Button title={"Allow camera"} onPress={() => askForCamera()} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <BarCodeScanner
+      <Camera
         onBarCodeScanned={scanned ? undefined : handleScanned}
         style={styles.camera}
+        type={Camera.Constants.Type.back}
       >
         <View>
           <Text style={styles.maintext}>{text}</Text>
@@ -59,8 +78,14 @@ export default function Scanner() {
         <View style={styles.buttons}>
           <View style={styles.buttonText}>
             {scanned && (
-              <Pressable style={styles.scan} onPress={() => setScanned(false)}>
-                <Text style={styles.scanText}>{"Scan Again"}</Text>
+              <Pressable
+                style={styles.scan}
+                onPress={() => {
+                  setScanned(false);
+                  setText("Please scan an item");
+                }}
+              >
+                <Text style={styles.scanText}>{"📷 Scan Again"}</Text>
               </Pressable>
             )}
           </View>
@@ -72,12 +97,12 @@ export default function Scanner() {
                   handleScannedItem(), navigation.navigate("Home");
                 }}
               >
-                <Text style={styles.scanText}>{"Add Ingredient"}</Text>
+                <Text style={styles.scanText}>{"👨‍🍳 Add Ingredient"}</Text>
               </Pressable>
             )}
           </View>
         </View>
-      </BarCodeScanner>
+      </Camera>
     </View>
   );
 }
@@ -100,6 +125,8 @@ const styles = StyleSheet.create({
   camera: {
     flex: 10,
     alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   buttonText: {
     marginRight: 50,
