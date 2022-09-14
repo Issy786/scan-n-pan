@@ -29,12 +29,12 @@ export default function Recipes() {
         setRecipes(res);
       });
     }
-  }, [addedItems]);
+  }, [addedItems, items]);
 
   return (
     <ScrollView>
       <Picker
-        style={{ width: 200 }}
+        style={styles.sort}
         selectedValue={items}
         onValueChange={(itemValue, itemIndex) => {
           setItems(itemValue);
@@ -69,20 +69,20 @@ export default function Recipes() {
                   uri: recipe.data.img,
                 }}
               />
-              <Text>
-                Cooking Time:{recipe.data.cookingTime}
-                {"\n"}Ingredients:
-              </Text>
+              <View>
+                <Text style={styles.cookingtime}>
+                  Cooking Time: {recipe.data.cookingTime}
+                </Text>
+              </View>
               {recipe.data.ingredients.map((ingredient, index) => {
                 return (
                   <View key={index}>
-                    <Text>
+                    <Text style={styles.ingredients}>
                       {ingredient.ingredient} {ingredient.amount}
                     </Text>
                   </View>
                 );
               })}
-              <Text>{recipe.data.directions}</Text>
             </View>
           </View>
         );
@@ -123,7 +123,26 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     marginHorizontal: 4,
     marginVertical: 6,
-    width: 80,
-    height: 70,
+    width: 230,
+    height: 200,
+  },
+  cookingtime: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "700",
+
+    padding: 5,
+    marginBottom: 5,
+    borderRadius: 5,
+  },
+  ingredients: {
+    textAlign: "center",
+    fontWeight: "700",
+  },
+  sort: {
+    backgroundColor: "orange",
+    color: "brown",
+    textAlign: "center",
+    justifyContent: "center",
   },
 });

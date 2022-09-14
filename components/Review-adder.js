@@ -40,7 +40,6 @@ const Review = ({ value }) => {
       }
     });
     setNewReview(text);
-    console.log(newReview, text, "wow");
   };
 
   return (
@@ -64,14 +63,15 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
-    borderWidth: 1,
+    color: "white",
     padding: 10,
     borderRadius: 5,
+    backgroundColor: "orange",
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0782F9",
+    backgroundColor: "red",
     width: "20%",
     flexDirection: "row",
     marginBottom: 5,

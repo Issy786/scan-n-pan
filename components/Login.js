@@ -56,13 +56,13 @@ const Login = () => {
           placeholder="Email"
           value={email}
           onChangeText={(text) => setEmail(text)}
-          style={styles.input}
+          style={styles.inputEmail}
         />
         <TextInput
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          style={styles.input}
+          style={styles.inputPass}
           secureTextEntry
         />
       </View>
@@ -93,12 +93,21 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "80%",
   },
-  input: {
-    backgroundColor: "white",
+  inputPass: {
+    backgroundColor: "orange",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
+    color: "white",
+  },
+  inputEmail: {
+    backgroundColor: "brown",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
+    color: "white",
   },
   buttonContainer: {
     width: "60%",
@@ -107,17 +116,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: "#0782F9",
+    backgroundColor: "#12BD2C",
     width: "100%",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
   },
   buttonOutline: {
-    backgroundColor: "white",
+    backgroundColor: "red",
     marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
   },
   buttonText: {
     color: "white",
@@ -125,7 +132,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutlineText: {
-    color: "#0782F9",
+    color: "white",
     fontWeight: "700",
     fontSize: 16,
   },
