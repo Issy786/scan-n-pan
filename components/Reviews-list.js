@@ -10,8 +10,8 @@ export default function Reviews({ value }) {
     newArr = [...value, newReview];
 
     return (
-      <View style={styles.card}>
-        {newArr.map((data, index) => {
+      <View>
+        {value.map((data, index) => {
           return (
             <View key={index}>
               <Text style={styles.cardContent}>{data}</Text>
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "beige",
+    backgroundColor: "white",
     shdowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowOpacity: 0.3,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "beige",
     shdowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowOpacity: 0.3,
