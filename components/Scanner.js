@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { Camera } from "expo-camera";
 import { addedItemsContext, barcodeContext, itemContext } from "../context";
 
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Not yet scanned");
+  const [text, setText] = useState("Please scan an item");
   const { barcodeData, setBarcodeData } = useContext(barcodeContext);
   const { item, setItem } = useContext(itemContext);
   const { addedItems, setAddedItems } = useContext(addedItemsContext);
@@ -16,7 +17,7 @@ export default function Scanner() {
 
   const askForCamera = () => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   };
@@ -31,7 +32,9 @@ export default function Scanner() {
     fetch(`https://en.openfoodfacts.org/api/v0/product/${data}`)
       .then((response) => response.json())
       .then((json) => {
-        setBarcodeData(json.product.product_name_en);
+        const scannedItemToLowerCase =
+          json.product.product_name_en.toLowerCase();
+        setBarcodeData(scannedItemToLowerCase);
         setText(json.product.product_name_en);
       })
       .catch(() => {
@@ -45,28 +48,61 @@ export default function Scanner() {
     setBarcodeData(null);
   };
 
+  if (hasPermission === null) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>Requesting for camera permission</Text>
+      </View>
+    );
+  }
+
+  if (hasPermission === false) {
+    return (
+      <View style={styles.container}>
+        <Text style={{ margin: 10 }}>No access to camera</Text>
+        <Button title={"Allow camera"} onPress={() => askForCamera()} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.barcodebox}>
-        <BarCodeScanner
-          onBarCodeScanned={scanned ? undefined : handleScanned}
-          style={styles.camera}
-        />
-      </View>
-      <Text style={styles.maintext}>{text}</Text>
-      <View style={styles.buttonText}>
-        {scanned && (
-          <Button title={"Scan again?"} onPress={() => setScanned(false)} />
-        )}
-      </View>
-      {scanned && (
-        <Button
-          title={"Add Ingredient"}
-          onPress={() => {
-            handleScannedItem(), navigation.navigate("Home");
-          }}
-        />
-      )}
+      <Camera
+        onBarCodeScanned={scanned ? undefined : handleScanned}
+        style={styles.camera}
+        type={Camera.Constants.Type.back}
+      >
+        <View>
+          <Text style={styles.maintext}>{text}</Text>
+        </View>
+        <View style={styles.buttons}>
+          <View style={styles.buttonText}>
+            {scanned && (
+              <Pressable
+                style={styles.scan}
+                onPress={() => {
+                  setScanned(false);
+                  setText("Please scan an item");
+                }}
+              >
+                <Text style={styles.scanText}>{"📷 Scan Again"}</Text>
+              </Pressable>
+            )}
+          </View>
+          <View style={styles.addButton}>
+            {scanned && (
+              <Pressable
+                style={styles.scan}
+                onPress={() => {
+                  handleScannedItem(), navigation.navigate("Home");
+                }}
+              >
+                <Text style={styles.scanText}>{"👨‍🍳 Add Ingredient"}</Text>
+              </Pressable>
+            )}
+          </View>
+        </View>
+      </Camera>
     </View>
   );
 }
@@ -74,34 +110,42 @@ export default function Scanner() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "rgb(43,43,43)",
   },
-  barcodebox: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 300,
-    width: 300,
-    overFlow: "hidden",
-    borderRadius: 30,
-    backgroundColor: "tomato",
-  },
+
   maintext: {
     fontSize: 16,
     margin: 20,
     color: "white",
-    borderColor: "white",
-    borderWidth: 2,
     borderRadius: 20,
     padding: 10,
+    top: 100,
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   camera: {
-    borderRadius: 30,
-    height: 500,
-    width: 400,
+    flex: 10,
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   buttonText: {
-    marginBottom: 2,
+    marginRight: 50,
+  },
+  scan: {
+    padding: 10,
+    fontSize: 15,
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  scanText: {
+    color: "white",
+  },
+  addButton: {
+    marginLeft: 50,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    top: 400,
   },
 });

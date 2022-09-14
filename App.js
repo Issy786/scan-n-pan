@@ -6,7 +6,12 @@ import Scanner from "./components/Scanner";
 import Recipe from "./components/Recipe";
 import Recipes from "./components/Recipes";
 import { LogBox, StyleSheet, Image } from "react-native";
-import { barcodeContext, itemContext, addedItemsContext } from "./context";
+import {
+  barcodeContext,
+  itemContext,
+  addedItemsContext,
+  reviewContext,
+} from "./context";
 import { useState } from "react";
 
 const Stack = createNativeStackNavigator();
@@ -15,6 +20,7 @@ export default function App() {
   const [barcodeData, setBarcodeData] = useState(null);
   const [item, setItem] = useState();
   const [addedItems, setAddedItems] = useState([]);
+  const [newReview, setNewReview] = useState();
 
   LogBox.ignoreLogs(["Warning: ..."]);
   LogBox.ignoreAllLogs();

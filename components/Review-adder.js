@@ -6,14 +6,16 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getData } from "../functions";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { reviewContext } from "../context";
 
 const Review = ({ value }) => {
   const [text, setText] = useState("");
   const [review, setReview] = useState("");
+  const { newReview, setNewReview } = useContext(reviewContext);
 
   useEffect(() => {
     getData("cookingTime").then((res) => {
@@ -37,6 +39,8 @@ const Review = ({ value }) => {
         console.log(err, "<<<error");
       }
     });
+    setNewReview(text);
+    console.log(newReview, text, "wow");
   };
 
   return (
