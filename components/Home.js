@@ -28,7 +28,9 @@ const Home = () => {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.itemWrapper}>
-            <Text style={styles.sectionTile}>Ingredients</Text>
+            <Text style={styles.sectionTile}>
+              Add ingredients to find recipes
+            </Text>
             <ItemAdder />
             <View style={styles.tile}>
               <ScrollView>
@@ -82,9 +84,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sectionTile: {
-    marginBottom: 5,
+    marginBottom: 10,
     fontSize: 24,
     fontWeight: "bold",
+    backgroundColor: "brown",
+    color: "white",
+    textAlign: "center",
+    borderRadius: 5,
   },
   tile: {
     height: 150,

@@ -17,13 +17,15 @@ export default function Recipe() {
             uri: route.params.img,
           }}
         />
-        <Text style={styles.card}>Cooking Time:{route.params.cookingTime}</Text>
+        <Text style={styles.title}>
+          Cooking Time: {route.params.cookingTime}
+        </Text>
         <Text style={styles.title}>Ingredients:</Text>
         {route.params.ingredients.map((ingredient, index) => {
           return (
-            <View key={index} style={styles.card}>
-              <Text>
-                {ingredient.ingredient} {ingredient.amount}
+            <View key={index} style={styles.card2}>
+              <Text style={styles.ingredients}>
+                {ingredient.ingredient} - {ingredient.amount}
               </Text>
             </View>
           );
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: "lightgrey",
     shdowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowOpacity: 0.3,
@@ -109,7 +111,8 @@ const styles = StyleSheet.create({
   },
   reviewsTitle: {
     textAlign: "center",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#12BD2C",
+    color: "white",
     fontSize: 18,
     fontWeight: "700",
     width: "30%",
@@ -117,5 +120,19 @@ const styles = StyleSheet.create({
     padding: 5,
     marginBottom: 5,
     borderRadius: 5,
+  },
+  card2: {
+    elevation: 3,
+    backgroundColor: "beige",
+    shdowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 2,
+  },
+  ingredients: {
+    textAlign: "center",
+    fontWeight: "700",
   },
 });

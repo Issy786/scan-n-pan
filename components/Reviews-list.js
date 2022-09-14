@@ -8,13 +8,12 @@ export default function Reviews({ value }) {
   let newArr = [...value];
   if (value && newReview !== null) {
     newArr = [...value, newReview];
-
     return (
       <View>
         {newArr.map((data, index) => {
           return (
-            <View key={index}>
-              <Text style={styles.cardContent}>{data}</Text>
+            <View key={index} style={styles.cardContent}>
+              <Text style={styles.cardText}>{data}</Text>
             </View>
           );
         })}
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
   cardContent: {
     marginHorizontal: 18,
     marginVertical: 10,
-    fontWeight: "500",
     borderRadius: 6,
     elevation: 3,
     backgroundColor: "beige",
@@ -46,7 +44,12 @@ const styles = StyleSheet.create({
     shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
-    textAlign: "center",
     margin: 3,
+  },
+  cardText: {
+    fontWeight: "500",
+    textAlign: "center",
+    padding: 3,
+    margin: 5,
   },
 });
