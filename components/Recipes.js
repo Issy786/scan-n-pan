@@ -29,7 +29,7 @@ export default function Recipes() {
         setRecipes(res);
       });
     }
-  }, [addedItems]);
+  }, [addedItems, items]);
 
   return (
     <ScrollView>
@@ -50,6 +50,7 @@ export default function Recipes() {
             <View style={styles.cardContent}>
               <Button
                 title={recipe.data.name}
+                color="tomato"
                 onPress={() =>
                   navigation.navigate("Recipe", {
                     ingredients: recipe.data.ingredients,
@@ -76,9 +77,7 @@ export default function Recipes() {
               {recipe.data.ingredients.map((ingredient, index) => {
                 return (
                   <View key={index}>
-                    <Text>
-                      {ingredient.ingredient} {ingredient.amount}
-                    </Text>
+                    <Text>{ingredient.ingredient}</Text>
                   </View>
                 );
               })}

@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   reviewsTitle: {
     textAlign: "center",
-    backgroundColor: "#ADD8E6",
+    backgroundColor: "#FFC4B9",
     fontSize: 18,
     fontWeight: "700",
     width: "30%",

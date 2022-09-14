@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    backgroundColor: "#0782F9",
+    backgroundColor: "tomato",
     width: "30%",
     padding: 5,
     borderRadius: 10,
@@ -85,21 +85,14 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontSize: 24,
     fontWeight: "bold",
+    color: "red",
   },
   tile: {
     height: 150,
     width: 375,
-    borderColor: "#0782F9",
+    borderColor: "tomato",
     borderWidth: 5,
     borderRadius: 10,
     padding: 5,
-  },
-  submit: {
-    borderColor: "#0782F9",
-    borderRadius: 10,
-    borderWidth: 1,
-    paddingHorizontal: 3,
-    width: 60,
-    margin: 3,
   },
 });

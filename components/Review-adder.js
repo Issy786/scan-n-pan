@@ -39,7 +39,9 @@ const Review = ({ value }) => {
         console.log(err, "<<<error");
       }
     });
-    setNewReview(text);
+    if (text.length > 0) {
+      setNewReview(text);
+    }
     console.log(newReview, text, "wow");
   };
 
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#0782F9",
+    backgroundColor: "tomato",
     width: "20%",
     flexDirection: "row",
     marginBottom: 5,

@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [barcodeData, setBarcodeData] = useState(null);
-  const [item, setItem] = useState();
+  const [item, setItem] = useState(null);
   const [addedItems, setAddedItems] = useState([]);
   const [newReview, setNewReview] = useState();
 

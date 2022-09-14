@@ -23,7 +23,7 @@ export const ItemAdder = () => {
       setAddedItems([lowerCaseItem, ...addedItems]);
       setItem(null);
     } else if (item === null) {
-      alert("Please enter an ingredient");
+      alert("⚠️ Please enter an ingredient");
     }
   };
 
@@ -34,7 +34,11 @@ export const ItemAdder = () => {
         style={styles.addingITem}
       >
         <View>
-          <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
+          <Button
+            title="Scan"
+            color="tomato"
+            onPress={() => navigation.navigate("Scanner")}
+          />
         </View>
         <TextInput
           style={styles.input}
@@ -44,7 +48,7 @@ export const ItemAdder = () => {
         />
         <TouchableOpacity onPress={() => handleAddItem()}>
           <View style={styles.addWrapper}>
-            <Text style={styles.addSymbol}>🧺</Text>
+            <Text style={styles.addSymbol}>{`🧺`}</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -62,9 +66,14 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderColor: "#0782F9",
-    borderRadius: 60,
+    borderRadius: 50,
+    elevation: 3,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    borderColor: "tomato",
     borderWidth: 1,
+    borderRadius: 60,
+
     width: 250,
     marginBottom: 3,
   },
@@ -72,7 +81,9 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 50,
-    borderColor: "#0782F9",
+    elevation: 3,
+    backgroundColor: "#fff",
+    borderColor: "tomato",
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
