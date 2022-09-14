@@ -87,15 +87,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 24,
     fontWeight: "bold",
-    backgroundColor: "brown",
-    color: "white",
+
+    color: "brown",
     textAlign: "center",
     borderRadius: 5,
   },
   tile: {
     height: 150,
     width: 375,
-    borderColor: "tomato",
+    borderColor: "#12BD2C",
     borderWidth: 5,
     borderRadius: 10,
     padding: 5,

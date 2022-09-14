@@ -40,9 +40,9 @@ export default function Recipes() {
           setItems(itemValue);
         }}
       >
-        <Picker.Item label="Cooking Time" value="cookingTime" />
-        <Picker.Item label="Name" value="name" />
-        <Picker.Item label="Rating" value="rating" />
+        <Picker.Item label="Sort By Cooking Time" value="cookingTime" />
+        <Picker.Item label="Sort By Name" value="name" />
+        <Picker.Item label="Sort By Rating" value="rating" />
       </Picker>
       {recipes.map((recipe) => {
         return (
@@ -50,7 +50,7 @@ export default function Recipes() {
             <View style={styles.cardContent}>
               <Button
                 title={recipe.data.name}
-                color="tomato"
+                color="red"
                 onPress={() =>
                   navigation.navigate("Recipe", {
                     ingredients: recipe.data.ingredients,
@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   sort: {
-    backgroundColor: "orange",
     color: "brown",
     textAlign: "center",
     justifyContent: "center",

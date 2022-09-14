@@ -3,10 +3,13 @@ import React, { useContext } from "react";
 import { reviewContext } from "../context";
 
 export default function Reviews({ value }) {
-  const { newReview } = useContext(reviewContext);
+  let { newReview } = useContext(reviewContext);
 
   let newArr = [...value];
   if (value && newReview !== null) {
+    newReview !== undefined
+      ? (newReview = `${newReview} \n \n ${new Date().toLocaleString()}`)
+      : null;
     newArr = [...value, newReview];
     return (
       <View>
