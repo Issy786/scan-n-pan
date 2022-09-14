@@ -41,7 +41,8 @@ export default function Recipes() {
         }}
       >
         <Picker.Item label="Cooking Time" value="cookingTime" />
-        <Picker.Item label="Ingredients" value="ingredients" />
+        <Picker.Item label="Name" value="name" />
+        <Picker.Item label="Rating" value="rating" />
       </Picker>
       {recipes.map((recipe) => {
         return (
