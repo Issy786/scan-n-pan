@@ -36,7 +36,7 @@ export const ItemAdder = () => {
         <View>
           <Button
             title="Scan"
-            color="tomato"
+            color="orange"
             onPress={() => navigation.navigate("Scanner")}
           />
         </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderColor: "tomato",
+    borderColor: "orange",
     borderRadius: 60,
     borderWidth: 1,
     width: 250,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 50,
-    borderColor: "tomato",
+    borderColor: "orange",
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",

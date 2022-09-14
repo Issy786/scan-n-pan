@@ -130,6 +130,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     margin: 5,
-    color: "darkorange",
+    color: "brown",
   },
 });
