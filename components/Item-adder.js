@@ -34,7 +34,11 @@ export const ItemAdder = () => {
         style={styles.addingITem}
       >
         <View>
-          <Button title="Scan" onPress={() => navigation.navigate("Scanner")} />
+          <Button
+            title="Scan"
+            color="tomato"
+            onPress={() => navigation.navigate("Scanner")}
+          />
         </View>
         <TextInput
           style={styles.input}
@@ -62,7 +66,7 @@ const styles = StyleSheet.create({
   input: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderColor: "#0782F9",
+    borderColor: "tomato",
     borderRadius: 60,
     borderWidth: 1,
     width: 250,
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 50,
-    borderColor: "#0782F9",
+    borderColor: "tomato",
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",

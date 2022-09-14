@@ -50,6 +50,7 @@ export default function Recipes() {
             <View style={styles.cardContent}>
               <Button
                 title={recipe.data.name}
+                color="tomato"
                 onPress={() =>
                   navigation.navigate("Recipe", {
                     ingredients: recipe.data.ingredients,
