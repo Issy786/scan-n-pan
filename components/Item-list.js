@@ -19,7 +19,7 @@ export const ItemList = () => {
           <View key={index} style={styles.itemAdded}>
             <Item style={styles.ItemText} text={value} />
             <TouchableOpacity onPress={() => removeItem(index)}>
-              <Text style={styles.del}>Del</Text>
+              <Text style={styles.del}>🗑️</Text>
             </TouchableOpacity>
           </View>
         );
@@ -39,10 +39,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   del: {
-    borderColor: "tomato",
-    color: "tomato",
-    borderRadius: 10,
-    borderWidth: 1,
     padding: 2,
     marginBottom: 2,
   },

@@ -8,7 +8,7 @@ import { addedItemsContext, barcodeContext, itemContext } from "../context";
 export default function Scanner() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Please scan an item");
+  const [text, setText] = useState("║█║▌ Please scan an item");
   const { barcodeData, setBarcodeData } = useContext(barcodeContext);
   const { item, setItem } = useContext(itemContext);
   const { addedItems, setAddedItems } = useContext(addedItemsContext);
@@ -35,10 +35,10 @@ export default function Scanner() {
         const scannedItemToLowerCase =
           json.product.product_name_en.toLowerCase();
         setBarcodeData(scannedItemToLowerCase);
-        setText(json.product.product_name_en);
+        setText(`✅ ${json.product.product_name_en}`);
       })
       .catch(() => {
-        alert("item not found, please use a food item!");
+        alert("⚠️  item not found, please use a food item!");
       });
   };
 
@@ -82,7 +82,7 @@ export default function Scanner() {
                 style={styles.scan}
                 onPress={() => {
                   setScanned(false);
-                  setText("Please scan an item");
+                  setText("║█║▌ Please scan an item");
                 }}
               >
                 <Text style={styles.scanText}>{"📷 Scan Again"}</Text>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 20,
     padding: 10,
-    top: 100,
+    top: 50,
     backgroundColor: "rgba(0,0,0,0.5)",
   },
   camera: {

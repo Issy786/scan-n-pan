@@ -44,7 +44,7 @@ export const ItemAdder = () => {
         />
         <TouchableOpacity onPress={() => handleAddItem()}>
           <View style={styles.addWrapper}>
-            <Text style={styles.addSymbol}>+</Text>
+            <Text style={styles.addSymbol}>🧺</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>

@@ -11,7 +11,7 @@ export default function Reviews({ value }) {
 
     return (
       <View>
-        {value.map((data, index) => {
+        {newArr.map((data, index) => {
           return (
             <View key={index}>
               <Text style={styles.cardContent}>{data}</Text>
