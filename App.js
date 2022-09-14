@@ -31,13 +31,13 @@ export default function App() {
                   <Image
                     style={StyleSheet.absoluteFill}
                     source={{
-                      uri: "https://pantalking.com/wp-content/uploads/2022/04/What-Is-Non-Stick-Pan.jpg",
+                      uri: "https://i.ibb.co/18y5QzH/scannpan.jpg",
                     }}
                   />
                 ),
-                headerTintColor: "white",
+                headerTintColor: "fff",
                 headerTitleStyle: {
-                  fontWeight: "900",
+                  fontWeight: "700",
                 },
               }}
             >
