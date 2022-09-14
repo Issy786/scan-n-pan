@@ -31,7 +31,9 @@ export default function Scanner() {
     fetch(`https://en.openfoodfacts.org/api/v0/product/${data}`)
       .then((response) => response.json())
       .then((json) => {
-        setBarcodeData(json.product.product_name_en);
+        const scannedItemToLowerCase =
+          json.product.product_name_en.toLowerCase();
+        setBarcodeData(scannedItemToLowerCase);
         setText(json.product.product_name_en);
       })
       .catch(() => {
@@ -54,24 +56,26 @@ export default function Scanner() {
         <View>
           <Text style={styles.maintext}>{text}</Text>
         </View>
-        <View style={styles.buttonText}>
-          {scanned && (
-            <Pressable style={styles.scan} onPress={() => setScanned(false)}>
-              <Text style={styles.scanText}>{"Scan Again"}</Text>
-            </Pressable>
-          )}
-        </View>
-        <View style={styles.addButton}>
-          {scanned && (
-            <Pressable
-              style={styles.scan}
-              onPress={() => {
-                handleScannedItem(), navigation.navigate("Home");
-              }}
-            >
-              <Text style={styles.scanText}>{"Add Ingredient"}</Text>
-            </Pressable>
-          )}
+        <View style={styles.buttons}>
+          <View style={styles.buttonText}>
+            {scanned && (
+              <Pressable style={styles.scan} onPress={() => setScanned(false)}>
+                <Text style={styles.scanText}>{"Scan Again"}</Text>
+              </Pressable>
+            )}
+          </View>
+          <View style={styles.addButton}>
+            {scanned && (
+              <Pressable
+                style={styles.scan}
+                onPress={() => {
+                  handleScannedItem(), navigation.navigate("Home");
+                }}
+              >
+                <Text style={styles.scanText}>{"Add Ingredient"}</Text>
+              </Pressable>
+            )}
+          </View>
         </View>
       </BarCodeScanner>
     </View>
@@ -81,23 +85,24 @@ export default function Scanner() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "rgb(43,43,43)",
   },
 
   maintext: {
     fontSize: 16,
     margin: 20,
     color: "white",
-    borderColor: "white",
-    borderWidth: 2,
     borderRadius: 20,
     padding: 10,
+    top: 100,
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   camera: {
     flex: 10,
+    alignItems: "center",
   },
   buttonText: {
-    marginBottom: 2,
-    bottom: 20,
+    marginRight: 50,
   },
   scan: {
     padding: 10,
@@ -109,6 +114,11 @@ const styles = StyleSheet.create({
     color: "white",
   },
   addButton: {
-    bottom: 1,
+    marginLeft: 50,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    top: 400,
   },
 });
