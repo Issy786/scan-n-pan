@@ -45,13 +45,12 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 6,
     elevation: 3,
-    backgroundColor: "#FFD2B6",
+    backgroundColor: "#F4E8E1",
     shdowOffset: { width: 1, height: 1 },
     shadowColor: "#333",
     shadowOpacity: 0.3,
     shadowRadius: 2,
     marginHorizontal: 4,
-    marginVertical: 6,
   },
   cardContent: {
     marginHorizontal: 18,
