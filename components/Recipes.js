@@ -130,15 +130,14 @@ const styles = StyleSheet.create({
   cookingtime: {
     textAlign: "center",
     fontSize: 18,
-    fontWeight: "700",
-
+    color: "brown",
     padding: 5,
     marginBottom: 5,
     borderRadius: 5,
   },
   ingredients: {
     textAlign: "center",
-    fontWeight: "700",
+    color: "brown",
   },
   sort: {
     color: "brown",
